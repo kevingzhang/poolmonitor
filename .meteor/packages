@@ -1,0 +1,23 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+coffeescript
+less
+mizzao:bootboxjs
+email
+accounts-password
+accounts-facebook
+accounts-ui
+accounts-github
+accounts-google
+accounts-twitter
+accounts-base
+mrt:moment
+mrt:twilio-meteor
+iron:router
+anticoders:fake
+mizzao:bootstrap-3
+
