@@ -13,20 +13,21 @@
   siteObj = siteInfoColl.findOne siteId
   unless siteObj?
     throw new Meteor.Error "Cannot addFacility to an non existing site"
+  hash = facilityName.hashCode()
   if siteObj.facilities?
-    hash = facilityName.hashCode
+    
     if siteObj.facilities.hash?
       return {e:'This facility name is existing'}
   
   updateObj = {}
-  updateObj[hash] = {_id:hash, name:facilityName, desc:facilityDesc}
+  updateObj["facilities.#{hash}"] = {_id:hash, name:facilityName, desc:facilityDesc}
   siteInfoColl.update {_id:siteId}, {$set:updateObj}
   return {r:hash}
 
 @siteInfoColl.removeFacilityFromSite = (siteId, facilityId, facilityName)->
   facilityId ?= facilityName.hashCode()
   updateObj = {}
-  updateObj[facilityId] = true
+  updateObj["facilities.#{facilityId}"] = true
   siteInfoColl.update {_id:siteId}, {$unset:updateObj}
   return {r:facilityId}
 
@@ -67,6 +68,7 @@
   updateObj["facilities.#{facilityId}.kpi[#{kpiId}"] = true
   siteInfoColl.update {_id:siteId}, {$unset:{updateObj}}
   
+
 
 
 

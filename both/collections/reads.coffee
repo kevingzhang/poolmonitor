@@ -1,0 +1,1 @@
+@siteInfoColl = new Mongo.Collection 'reads'
