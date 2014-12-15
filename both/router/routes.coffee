@@ -62,3 +62,26 @@ Router.map ()->
 
   @route 'admin',
     path:'/admin'
+
+  @route 'site.admin',
+    path:'/site/admin'
+    template:'siteAdmin'
+    waitOn:()->
+      poolId = Session.get('poolId')
+      return unless poolId?
+      return Meteor.subscribe 'siteInfo', poolId
+    data:->
+      poolId = Session.get('poolId')
+      siteInfo = siteInfoColl.find _id:poolId
+      return unless siteInfo?
+      return siteInfo
+
+  @route 'sys.admin',
+    path:'sysadmin'
+    template:'sysAdmin'
+    layoutTemplate:'desktopLayout'
+    waitOn:->
+      Meteor.subscribe 'adminAllSiteInfo'
+    data:->
+      siteInfoColl.find {}
+
