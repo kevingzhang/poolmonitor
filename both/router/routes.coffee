@@ -11,6 +11,12 @@ Router.map ()->
   @route 'home',
     path:'/'
 
+  @route 'autoform',
+    path:'/autoform'
+    
+    data:()->
+      return "hello"
+
   @route 'store',
     path:'/store/:storeId',
     waitOn:()->

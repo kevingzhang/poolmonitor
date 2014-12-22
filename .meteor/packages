@@ -20,4 +20,6 @@ mrt:twilio-meteor
 iron:router
 anticoders:fake
 mizzao:bootstrap-3
+aldeed:autoform
+aldeed:collection2
 
