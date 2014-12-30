@@ -1,5 +1,18 @@
 <template name='sysAdmin'>
-  sys admin
+  {{> reactiveTable collection=sitesInGroup settings=siteTableSettings}}
+  {{#afModal class="btn btn-primary" collection="siteInfoColl" operation="insert"}}
+    Add site
+  {{/afModal}}
+  {{#afModal class="btn btn-primary" collection="siteInfoColl" operation="update" doc=selectedSiteId}}
+    Update site
+  {{/afModal}}
+  {{#afModal class="btn btn-primary" collection="siteInfoColl" operation="remove" doc=selectedSiteId}}
+    Remove site
+  {{/afModal}}
+  <!-- {{>quickForm id='insertDemo' type='insert' collection=siteInfoColl }}
+ -->
+
+
   {{#contentFor 'jumbotronTitle'}}
     <h2>System Admin</h2>
     <p><a class="btn btn-primary btn-lg" href="#" role="button">Add new site</a></p>

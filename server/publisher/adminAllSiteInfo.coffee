@@ -1,9 +1,7 @@
 Meteor.publish 'adminAllSiteInfo', ()->
   
-  # return unless @userId?
-  # if false #user.profile.emails[0] isnt 'admin@poolmonitor.com'
-  #   detail = "None admin user try to access admin"
-  #   console.log "ERROR:", detail
-  #   throw new Meteor.Meteor.Error 404, 'Error 404: Not found', details
+  groups = Roles.getGroupsForUser(@userId, 'admin')
+  console.log groups
 
-  return siteInfoColl.find()
+
+  return siteInfoColl.find group:{$in:groups}
