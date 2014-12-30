@@ -82,9 +82,12 @@ Router.map ()->
       return unless siteInfo?
       return siteInfo
 
-  @route 'settings.sites',
-    path:'settings/sites'
-    template:'settings.sites'
+  @route 'sys.admin.faclist',
+    path:'sysadmin/faclist/:siteId'
+    template:'facilityList'
+    waitOn:->
+
+      Meteor.subscribe 'facilityList', @params.siteId
     data:->
 
   @route 'sys.admin',
@@ -92,7 +95,7 @@ Router.map ()->
     template:'sysAdmin'
     layoutTemplate:'desktopLayout'
     waitOn:->
-      
+
       Meteor.subscribe 'adminAllSiteInfo'
     data:->
       siteInfoColl.find {}

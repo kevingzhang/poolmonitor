@@ -51,6 +51,12 @@ Template.sysAdmin.helpers
             else
               0
 
+        },
+        {
+          key:'_id'
+          label:'Action'
+          fn:(f,e)->
+            return new Handlebars.SafeString "<i data-id='#{f}' class='fa fa-cog'></i>"
         }
         
       ]
@@ -59,5 +65,9 @@ Template.sysAdmin.events
   'click #siteTable .regular-row': (e,t) ->
     Session.set 'sysAdmin/selectedSite', @_id
 
+  'click #siteTable .regular-row .fa-cog':(e,t)->
+    siteId = e.currentTarget.getAttribute('data-id')
+    if siteId?
+      Router.go "/sysadmin/faclist/#{siteId}"
     # ...
 
