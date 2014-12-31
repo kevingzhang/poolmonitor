@@ -1,12 +1,12 @@
 <template name='sysAdmin'>
   {{> reactiveTable collection=sitesInGroup settings=siteTableSettings}}
-  {{#afModal class="btn btn-primary" collection="siteInfoColl" operation="insert"}}
+  {{#afModal class="btn btn-primary" collection="siteInfoColl" operation="insert" omitFields="facilities.$.id"}}
     Add site
   {{/afModal}}
-  {{#afModal class="btn btn-primary" collection="siteInfoColl" operation="update" doc=selectedSiteId}}
+  {{#afModal class="btn btn-primary" collection="siteInfoColl" operation="update" omitFields="facilities.$.id" doc=selectedSiteId}}
     Update site
   {{/afModal}}
-  {{#afModal class="btn btn-primary" collection="siteInfoColl" operation="remove" doc=selectedSiteId}}
+  {{#afModal class="btn btn-primary" collection="siteInfoColl" operation="remove" omitFields="facilities.$.id" doc=selectedSiteId}}
     Remove site
   {{/afModal}}
   <!-- {{>quickForm id='insertDemo' type='insert' collection=siteInfoColl }}

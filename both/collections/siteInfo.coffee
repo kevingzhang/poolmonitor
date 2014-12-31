@@ -1,6 +1,8 @@
+SimpleSchema.debug = true
+
 @siteInfoColl = new Mongo.Collection 'siteinfo'
 
-@Schema = {}
+@Schema ?= {}
 
 Schema.Address = new SimpleSchema
   streetNumber:
@@ -23,9 +25,36 @@ Schema.SiteInfoProfile = new SimpleSchema
     type:SimpleSchema.RegEx.Email 
     optional:true 
 
-Schema.Facility = new SimpleSchema
+Schema.FacilityEmbedded = new SimpleSchema
   id:
     type:String 
+    autoValue:->
+      if Meteor.isClient
+        #console.log "this is client , set value to 0"
+        return 'na'
+      if Meteor.isServer
+        #console.log "this is server, set value to 1"
+        if @isInsert or (@isUpdate and (@value is 'na'))
+          console.log "Insert new facility or update but not value set"
+          newDoc = counterColl.findAndModify 
+            query:{_id:"facility"}
+            update:{$inc:{curId:1}}
+            upsert:true
+          newFacilityId = "#{newDoc.curId}"
+          console.log "newFacilityId", newFacilityId
+          console.log "name, and desc", @siblingField('name').value, @siblingField('desc').value
+          newFacilityDoc = 
+            _id: newFacilityId 
+            name: @siblingField('name').value
+            desc: @siblingField('desc').value
+          console.log "newFacilityDoc", newFacilityDoc
+          facilityColl.insert newFacilityDoc
+          #--- we have got facilityId, now need to insert a new facility document to collection
+
+          return newFacilityId
+        else
+          console.log "not insert , or update with existing value", @isInsert, @isUpdate, @isSet, @value
+          return 'na'
   name:
     type:String 
   desc:
@@ -48,7 +77,7 @@ Schema.SiteInfoSchema = new SimpleSchema
     type:Schema.SiteInfoProfile
     optional:true
   facilities:
-    type:[Schema.Facility]
+    type:[Schema.FacilityEmbedded]
     optional:true 
   
 
