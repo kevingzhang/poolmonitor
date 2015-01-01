@@ -41,15 +41,15 @@ Schema.FacilityEmbedded = new SimpleSchema
             update:{$inc:{curId:1}}
             upsert:true
           newFacilityId = "#{newDoc.curId}"
-          console.log "newFacilityId", newFacilityId
-          console.log "name, and desc", @siblingField('name').value, @siblingField('desc').value
-          newFacilityDoc = 
-            _id: newFacilityId 
-            name: @siblingField('name').value
-            desc: @siblingField('desc').value
-            kpi:[]
-          console.log "newFacilityDoc", newFacilityDoc
-          facilityColl.insert newFacilityDoc
+          # console.log "newFacilityId", newFacilityId
+          # console.log "name, and desc", @siblingField('name').value, @siblingField('desc').value
+          # newFacilityDoc = 
+          #   _id: newFacilityId 
+          #   name: @siblingField('name').value
+          #   desc: @siblingField('desc').value
+          #   kpi:[]
+          # console.log "newFacilityDoc", newFacilityDoc
+          # facilityColl.insert newFacilityDoc
           #--- we have got facilityId, now need to insert a new facility document to collection
 
           return newFacilityId

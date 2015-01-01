@@ -1,4 +1,4 @@
-@facilityColl = new Mongo.Collection 'facility'
+@kpiColl = new Mongo.Collection 'kpi'
 
 @Schema ?= {}
 
@@ -13,6 +13,8 @@ Schema.kpi = new SimpleSchema
     #     return {$setOnInsert:randomId}
     #   else
     #     @unset()
+  facilityId:
+    type:String
   name:
     type:String 
   desc:
@@ -27,7 +29,7 @@ Schema.kpi = new SimpleSchema
   function:
     type:Object
     optional:true
-  bestRange:
+  "bestRange":
     type:Object
     optional:true 
   "bestRange.inside":
@@ -70,25 +72,6 @@ Schema.kpi = new SimpleSchema
     type:Number
     optional:true
  
-  
-  
-
-Schema.Facility = new SimpleSchema
-  _id:
-    type:String 
-  name:
-    type:String 
-  desc:
-    type:String
-    optional:true 
-  kpi:
-    type:[Schema.kpi]
-    
-
-
-
-
-
-facilityColl.attachSchema Schema.Facility
+kpiColl.attachSchema Schema.kpi
 
   

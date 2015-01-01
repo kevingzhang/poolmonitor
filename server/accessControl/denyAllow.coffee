@@ -9,7 +9,7 @@ siteInfoColl.allow
     Roles.userIsInRole(userId, ['admin'], doc.group)
   
 
-facilityColl.allow
+kpiColl.allow
   insert: (userId, doc) ->
     return true
     #todo

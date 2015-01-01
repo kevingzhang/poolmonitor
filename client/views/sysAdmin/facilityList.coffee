@@ -2,7 +2,7 @@ Template.facilityList.rendered = ->
   that = @
   @autorun ->
     facilityId = Session.get 'currentSelectedFacilityId'
-    Meteor.subscribe 'facility', facilityId
+    Meteor.subscribe 'facilityKpi', facilityId
 
 Template.facilityList.helpers
   siteName:->
@@ -13,18 +13,24 @@ Template.facilityList.helpers
 
   facilityName:->
     facilityId = Session.get 'currentSelectedFacilityId'
-    facilityDoc = facilityColl.findOne _id:facilityId 
-    return facilityDoc?.name
+    siteInfoDoc = siteInfoColl.findOne facilities:{$elemMatch:{id:facilityId}}
+    return unless siteInfoDoc?.facilities?
+    for f in siteInfoDoc.facilities
+      if f.id is facilityId
+        return f.name
 
   facilityDesc:->
     facilityId = Session.get 'currentSelectedFacilityId'
-    facilityDoc = facilityColl.findOne _id:facilityId 
-    return facilityDoc?.desc
+    siteInfoDoc = siteInfoColl.findOne facilities:{$elemMatch:{id:facilityId}}
+    return unless siteInfoDoc?.facilities?
+    for f in siteInfoDoc.facilities
+      if f.id is facilityId
+        return f.desc
 
   kpis:->
     facilityId = Session.get 'currentSelectedFacilityId'
-    facilityDoc = facilityColl.findOne _id:facilityId 
-    return facilityDoc?.kpi 
+    kpiColl.find facilityId:facilityId
+
   tableSettings:->
     showfilter:false
     rowsPerPage:10
@@ -65,14 +71,9 @@ Template.facilityList.helpers
   autoSaveMode:true 
 
   selectedKpiDoc: ->
-    facilityId = Session.get 'currentSelectedFacilityId'
-    facilityDoc = facilityColl.findOne _id:facilityId 
-    return unless facilityDoc?
+    
     kpiId = Session.get "facility/selectedKpi"
-    for k in facilityDoc.kpi
-      if k.id is kpiId
-        #console.log k
-        return k
+    kpiColl.findOne kpiId
     
   KpiSchema:->
     Schema.kpi
@@ -85,15 +86,14 @@ Template.facilityList.events
   'click #add-kpi': (e,t) ->
     facilityId = Session.get 'currentSelectedFacilityId'
     
-    facilityDoc = facilityColl.findOne _id:facilityId 
-    return unless facilityDoc?
     newKpi = {}
     newKpi.id = Random.hexString(24)
     newKpi.name = 'new KPI'
+    newKpi.facilityId = facilityId
     newKpi.desc = ""
     newKpi.valueType = "Number"
     newKpi.isGeneric = true
-    facilityColl.update facilityId, $push:{kpi:newKpi}
+    kpiColl.insert newKpi
     
   'click #kpiTable .regular-row': (e,t) ->
     Session.set 'facility/selectedKpi', @id
