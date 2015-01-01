@@ -9,7 +9,7 @@
   {{/if}}
   <button id='add-kpi' class='btn btn-default'>Add KPI</button>
   {{#if selectedKpiDoc}}
-    {{> quickForm id='kpiForm' type='update' schema=KpiSchema doc=selectedKpiDoc autosave=true}}
+    {{> quickForm id='kpiForm' type='update' collection="kpiColl" doc=selectedKpiDoc autosave=true}}
   {{/if}}
 </div>
 </template>

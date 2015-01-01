@@ -38,7 +38,7 @@ Template.facilityList.helpers
     useFontAwesome:true
     id:'kpiTable'
     rowClass:(e)->
-      rowId = e.id
+      rowId = e._id
       if Session.equals("facility/selectedKpi", rowId)
         return 'selected-row'
       else
@@ -87,7 +87,7 @@ Template.facilityList.events
     facilityId = Session.get 'currentSelectedFacilityId'
     
     newKpi = {}
-    newKpi.id = Random.hexString(24)
+    newKpi._id = Random.hexString(24)
     newKpi.name = 'new KPI'
     newKpi.facilityId = facilityId
     newKpi.desc = ""
@@ -96,7 +96,7 @@ Template.facilityList.events
     kpiColl.insert newKpi
     
   'click #kpiTable .regular-row': (e,t) ->
-    Session.set 'facility/selectedKpi', @id
+    Session.set 'facility/selectedKpi', @_id
 
 
     # ...

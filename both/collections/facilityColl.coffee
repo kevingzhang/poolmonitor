@@ -3,7 +3,7 @@
 @Schema ?= {}
 
 Schema.kpi = new SimpleSchema
-  id:
+  _id:
     type:String 
     # autoValue:->
     #   randomId = Random.hexString(24)
@@ -38,6 +38,7 @@ Schema.kpi = new SimpleSchema
 
   'bestRange.lower':
     type:Number
+    optional:true
     
   'bestRange.upper':
     type:Number 
