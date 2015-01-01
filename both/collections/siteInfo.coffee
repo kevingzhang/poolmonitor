@@ -47,6 +47,7 @@ Schema.FacilityEmbedded = new SimpleSchema
             _id: newFacilityId 
             name: @siblingField('name').value
             desc: @siblingField('desc').value
+            kpi:[]
           console.log "newFacilityDoc", newFacilityDoc
           facilityColl.insert newFacilityDoc
           #--- we have got facilityId, now need to insert a new facility document to collection
