@@ -32,7 +32,7 @@ Template.facilityList.helpers
     useFontAwesome:true
     id:'kpiTable'
     rowClass:(e)->
-      rowId = e._id
+      rowId = e.id
       if Session.equals("facility/selectedKpi", rowId)
         return 'selected-row'
       else
@@ -64,11 +64,19 @@ Template.facilityList.helpers
 
   autoSaveMode:true 
 
-  selectedKpiDoc = ->
+  selectedKpiDoc: ->
+    facilityId = Session.get 'currentSelectedFacilityId'
+    facilityDoc = facilityColl.findOne _id:facilityId 
+    return unless facilityDoc?
     kpiId = Session.get "facility/selectedKpi"
-    return facilityColl.findOne kpiId 
+    for k in facilityDoc.kpi
+      if k.id is kpiId
+        #console.log k
+        return k
+    
+  KpiSchema:->
+    Schema.kpi
 
-  
 
 
 
@@ -87,8 +95,8 @@ Template.facilityList.events
     newKpi.isGeneric = true
     facilityColl.update facilityId, $push:{kpi:newKpi}
     
-  'click #siteTable .regular-row': (e,t) ->
-    Session.set 'facility/selectedKpi', @_id
+  'click #kpiTable .regular-row': (e,t) ->
+    Session.set 'facility/selectedKpi', @id
 
 
     # ...

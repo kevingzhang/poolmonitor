@@ -8,18 +8,8 @@
   {{>reactiveTable collection=kpis settings=tableSettings}}
   {{/if}}
   <button id='add-kpi' class='btn btn-default'>Add KPI</button>
-  {{#if selectedKpi}}
-  {{#autoForm id="afUpdateKpi" type=formType collection=facilityColl doc=selectedKpiDoc autosave=autoSaveMode}}
-  {{> afQuickField name="firstName"}}
-  {{> afQuickField name="lastName"}}
-  {{> afQuickField name="age"}}
-  {{#unless autoSaveMode}}
-  <div class="form-group">
-    <button type="submit" class="btn btn-primary" disabled="{{disableButtons}}">Submit</button>
-    <button type="reset" class="btn btn-default" disabled="{{disableButtons}}">Reset Form</button>
-  </div>
-  {{/unless}}
-{{/autoForm}}
+  {{#if selectedKpiDoc}}
+    {{> quickForm id='kpiForm' type='update' schema=KpiSchema doc=selectedKpiDoc autosave=true}}
   {{/if}}
 </div>
 </template>
