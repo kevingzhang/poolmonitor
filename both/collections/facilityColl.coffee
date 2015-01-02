@@ -32,7 +32,7 @@ Schema.kpi = new SimpleSchema
   "bestRange":
     type:Object
     optional:true 
-  "bestRange.inside":
+  "bestRange.within":
     type:Boolean
     defaultValue:true
 
@@ -50,28 +50,30 @@ Schema.kpi = new SimpleSchema
   okRange:
     type:Object
     optional:true 
-  'okRange.inside':
+  'okRange.within':
     type:Boolean
     defaultValue:true
-  'okRange.upper':
-    type:Number
-    optional:true 
+  
   'okRange.lower':
     type:Number
     optional:true
+  'okRange.upper':
+    type:Number
+    optional:true 
     
   alertRange:
     type:Object
     optional:true 
-  'alertRange.inside':
+  'alertRange.within':
     type:Boolean
     defaultValue:true
-  'alertRange.upper':
-    type:Number
-    optional:true 
+  
   'alertRange.lower':
     type:Number
     optional:true
+  'alertRange.upper':
+    type:Number
+    optional:true 
  
 kpiColl.attachSchema Schema.kpi
 

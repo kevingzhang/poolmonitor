@@ -73,7 +73,9 @@ Template.facilityList.helpers
   selectedKpiDoc: ->
     
     kpiId = Session.get "facility/selectedKpi"
-    kpiColl.findOne kpiId
+    ret = kpiColl.findOne kpiId
+    console.log "selectedKpiDoc id", ret?._id
+    return ret 
     
   KpiSchema:->
     Schema.kpi
