@@ -1,0 +1,26 @@
+<template name='reading'>
+  {{> selectFacility}}
+
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <td style="width: 85px">Name</td>
+        <td>Description</td>
+        <td style="width: 250px">Reading value</td>
+        <td>Evaluation</td>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each kpis}}
+        <tr>
+          <td>{{this.name}}</td>
+          <td>{{this.desc}}</td>
+          <td>
+            <input type='text'>
+          </td>
+          <td>{{evaluation this}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>
