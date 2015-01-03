@@ -1,6 +1,6 @@
 <template name='reading'>
   {{> selectFacility}}
-
+  <h1>New Data Entry</h1>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
@@ -11,14 +11,17 @@
       </tr>
     </thead>
     <tbody>
-      {{#each kpis}}
+      {{#each readings}}
         <tr>
-          <td>{{this.name}}</td>
-          <td>{{this.desc}}</td>
           <td>
-            <input type='text'>
+            {{#if insert}}*{{/if}}
+            {{name}}
           </td>
-          <td>{{evaluation this}}</td>
+          <td>{{desc}}</td>
+          <td>
+            <input type='text' value='{{valueString}}'>
+          </td>
+          <td>{{evaluation}}</td>
         </tr>
       {{/each}}
     </tbody>

@@ -106,10 +106,8 @@ Router.map ()->
     waitOn:->
       facilityId = Session.get 'currentSelectedFacilityId'
       Meteor.subscribe 'facilityKpi', facilityId 
-    data:->
-      facilityId = Session.get 'currentSelectedFacilityId'
-      items = kpiColl.find facilityId:facilityId 
-      return {kpis:items}
+    
+      
 
 
 
