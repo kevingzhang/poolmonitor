@@ -45,7 +45,7 @@ Schema.Reading = new SimpleSchema
 
       return "OK"
   
-
+readingColl.attachSchema Schema.Reading
 
 readingColl.getTransformedValue = (readingId)->
   readingDoc = readingColl.findOne readingId

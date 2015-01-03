@@ -18,8 +18,15 @@
             {{name}}
           </td>
           <td>{{desc}}</td>
-          <td>
-            <input type='text' value='{{valueString}}'>
+          <td class='input-value'>
+          {{#if insert}}
+            {{#autoForm schema=inputSchema id=_id type="method" meteormethod="readingInput" validation='keyup'}}
+              {{> afQuickField name='input' label=false}}
+              
+            {{/autoForm}}
+          {{else}}
+            {{valueString}}
+          {{/if}}
           </td>
           <td>{{evaluation}}</td>
         </tr>

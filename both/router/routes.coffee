@@ -105,7 +105,10 @@ Router.map ()->
     template:'reading'
     waitOn:->
       facilityId = Session.get 'currentSelectedFacilityId'
-      Meteor.subscribe 'facilityKpi', facilityId 
+      ret = []
+      ret.push Meteor.subscribe 'facilityKpi', facilityId 
+      ret.push Meteor.subscribe 'readingOfFacility', facilityId
+      return ret 
     
       
 
