@@ -2,6 +2,8 @@
 Template.reading.helpers
   
   evaluation: ()->
+    return if @insert  #no date entry yet
+    return unless !!@valueString
     kpiDoc = kpiColl.findOne @kpiId
     if kpiDoc.valueType is 'Number'
       value = Number(@valueString)
@@ -12,22 +14,22 @@ Template.reading.helpers
         else
           if (value < (kpiDoc.bestRange.lower or Number.MIN_VALUE)) or (value > (kpiDoc.bestRange.upper or Number.MAX_VALUE))
             return 'Best' + "Out of:#{kpiDoc.bestRange.lower} and #{kpiDoc.bestRange.upper}"
-      else if kpiDoc.okRange?
+      if kpiDoc.okRange?
         if kpiDoc.okRange.within
           if (kpiDoc.okRange.lower or Number.MIN_VALUE) < value < (kpiDoc.okRange.upper or Number.MAX_VALUE)
             return 'OK' + "Between:#{kpiDoc.okRange.lower} and #{kpiDoc.okRange.upper}"
         else
           if (value < (kpiDoc.okRange.lower or Number.MIN_VALUE)) or (value > (kpiDoc.okRange.upper or Number.MAX_VALUE))
             return 'OK' + "Out of:#{kpiDoc.okRange.lower} and #{kpiDoc.okRange.upper}"
-      else if kpiDoc.alertRange?
+      if kpiDoc.alertRange?
         if kpiDoc.alertRange.within
           if (kpiDoc.alertRange.lower or Number.MIN_VALUE) < value < (kpiDoc.alertRange.upper or Number.MAX_VALUE)
             return 'Alert' + "Between:#{kpiDoc.alertRange.lower} and #{kpiDoc.alertRange.upper}"
         else
           if (value < (kpiDoc.alertRange.lower or Number.MIN_VALUE)) or (value > (kpiDoc.alertRange.upper or Number.MAX_VALUE))
             return 'Alert' + "Out of :#{kpiDoc.alertRange.lower} and #{kpiDoc.alertRange.upper}"
-      else
-        return 'No Range Set'
+      
+      return 'Alert: out of range'
     else
       ''
 
