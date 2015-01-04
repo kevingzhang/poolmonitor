@@ -1,11 +1,13 @@
 <template name='reading'>
   {{> selectFacility}}
+  {{> selectDate}}
   <h1>New Data Entry</h1>
+  <div class='container'>
   <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <td style="width: 85px">Name</td>
-        <td>Description</td>
+        
         <td style="width: 250px">Reading value</td>
         <td>Evaluation</td>
         <td></td>
@@ -15,10 +17,13 @@
       {{#each readings}}
         <tr>
           <td>
-            {{#if insert}}*{{/if}}
+            
             {{name}}
+            {{#if insert}}*{{/if}}
+            <br/>
+            <small>{{desc}}</small>
           </td>
-          <td>{{desc}}</td>
+        
           <td class='input-value'>
           {{#if insert}}
             {{#autoForm schema=inputSchema id=kpiId type="method" meteormethod="readingInput" validation='keyup'}}
@@ -35,4 +40,5 @@
       {{/each}}
     </tbody>
   </table>
+  </div>
 </template>

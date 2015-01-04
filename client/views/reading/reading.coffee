@@ -1,9 +1,4 @@
 
-Template.reading.rendered = ->
-  memoryColl = new Mongo.Collection()
-
-
-
 Template.reading.helpers
   
   evaluation: (kpi)->
@@ -16,7 +11,7 @@ Template.reading.helpers
       #todo
       return true 
     todayDataEntered = (item)->
-      today = moment().format('YYYYMMDD')
+      today = moment((Session.get 'currentDate') or new Date()).format('YYYYMMDD')
       return readingColl.findOne facilityId:facilityId, kpiId:item._id, logAtYMD:today 
 
 

@@ -1,0 +1,13 @@
+<template name='selectDate'>
+  <div class='formContainer'>
+    <a href='#' id='last'>Last</a>
+    <span>
+      {{#if settingDate}}
+      {{> quickForm id="selectDateForm" schema=selectDateSchema template="bootstrap3-inline" label-class="sr-only" buttonContent='Go'}}
+      {{else}}
+      <a href='#' id='click-to-select'>{{curDateString}}</a>
+      {{/if}}
+    </span>
+    <a href='#' id='next'>Next</a>
+  </div>
+</template>

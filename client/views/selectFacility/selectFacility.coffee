@@ -12,7 +12,7 @@ Template.selectFacility.helpers
       optgroup: s.name
       options:s.facilities.map (f)->{label:"#{f.name} - #{f.desc}", value:f.id}
     
-    console.log ret 
+    #console.log ret 
     return ret  
 
   selectFacilitySchema: ->
