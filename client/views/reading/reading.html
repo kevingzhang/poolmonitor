@@ -8,6 +8,7 @@
         <td>Description</td>
         <td style="width: 250px">Reading value</td>
         <td>Evaluation</td>
+        <td></td>
       </tr>
     </thead>
     <tbody>
@@ -20,7 +21,7 @@
           <td>{{desc}}</td>
           <td class='input-value'>
           {{#if insert}}
-            {{#autoForm schema=inputSchema id=_id type="method" meteormethod="readingInput" validation='keyup'}}
+            {{#autoForm schema=inputSchema id=kpiId type="method" meteormethod="readingInput" validation='keyup'}}
               {{> afQuickField name='input' label=false}}
               
             {{/autoForm}}
@@ -29,6 +30,7 @@
           {{/if}}
           </td>
           <td>{{evaluation}}</td>
+          <td>{{#unless insert}}<button data-id='{{_id}}' class='btn btn-default reset'>Reset</button>{{/unless}}</td>
         </tr>
       {{/each}}
     </tbody>

@@ -27,7 +27,8 @@ Template.reading.helpers
       if todayData?
         return {
           insert:false
-          _id:item._id
+          _id:todayData._id
+          kpiId:item._id
           name:item.name
           desc:item.desc 
           valueString: todayData.valueString
@@ -37,7 +38,7 @@ Template.reading.helpers
       if shouldShowKpi(item)
         return {
           insert:true
-          _id:item._id
+          kpiId:item._id
           name:item.name
           desc:item.desc 
           valueString: ''
@@ -73,16 +74,21 @@ Template.reading.events
   'blur td.input-value>form>div>input': (e,t) ->
 
     
-    id = e.target.parentElement.parentElement.getAttribute('id')
-    if AutoForm.validateField(id, 'input', false)
-      kpiDoc = kpiColl.findOne id
+    kpiId = e.target.parentElement.parentElement.getAttribute('id')
+    if AutoForm.validateField(kpiId, 'input', false)
+      kpiDoc = kpiColl.findOne kpiId
       newReadingDoc = {}
       newReadingDoc.facilityId = kpiDoc.facilityId
-      newReadingDoc.kpiId = id 
+      newReadingDoc.kpiId = kpiId 
       newReadingDoc.valueString = e.target.value
       newReadingDoc.valueType = kpiDoc.valueType
 
       readingColl.insert newReadingDoc
+
+  'click .reset':(e,t)->
+    readingId = e.target.getAttribute 'data-id'
+    if readingId?
+      readingColl.remove readingId
 
 
     # ...
