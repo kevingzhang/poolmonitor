@@ -1,0 +1,1 @@
+@counterColl = new Mongo.Collection('counter')

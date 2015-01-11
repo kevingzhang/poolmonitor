@@ -1,3 +1,3 @@
-Meteor.publish 'readingOfFacility', (facilityId)->
-  today = moment().format('YYYYMMDD')
-  readingColl.find facilityId:facilityId, logAtYMD:today
+Meteor.publish 'readingOfFacility', (facilityId, dateString)->
+  
+  readingColl.find facilityId:facilityId, logAtMDY:dateString

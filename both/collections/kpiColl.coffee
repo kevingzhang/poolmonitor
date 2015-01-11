@@ -1,3 +1,4 @@
+@Lists = new Mongo.Collection 'lists'
 @kpiColl = new Mongo.Collection 'kpi'
 
 @Schema ?= {}
@@ -15,8 +16,15 @@ Schema.kpi = new SimpleSchema
     #     @unset()
   facilityId:
     type:String
+  kpiGroupName:
+    type:String
+    label:'KPI Group'
+    allowedValues:["Default", "Chemical","Storage", "HVAC", "Mechanical"]
   name:
     type:String 
+  unit:
+    type:String
+    optional:true 
   desc:
     type:String
     optional:true

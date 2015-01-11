@@ -1,44 +1,87 @@
 <template name='reading'>
-  {{> selectFacility}}
-  {{> selectDate}}
-  <h1>New Data Entry</h1>
-  <div class='container'>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <td style="width: 85px">Name</td>
-        
-        <td style="width: 250px">Reading value</td>
-        <td>Evaluation</td>
-        <td></td>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each readings}}
-        <tr>
-          <td>
+  <div class="page lists-show">
+    <nav class="js-title-nav">
+      
+        <div class="nav-group">
+          <a href="#" class="js-menu nav-item"><span class="icon-list-unordered" title="Show menu"></span></a>
+        </div>
+
+        <h1 class="js-edit-list title-page"><span class="title-wrapper">{{siteFacilityName}}</span> <span class="count-list">{{kpiCount}}</span></h1>
+
+        <div class="nav-group right">
+          <div class="nav-item options-mobile">
+            <select class="list-edit">
+              <option disabled selected>Select an action</option>
+              {{#if userId}}
+                <option value="public">Make Public</option>
+              {{else}}
+                <option value="private">Make Private</option>
+              {{/if}}
+              <option value="delete">Delete</option>
+            </select>
+            <span class="icon-cog"></span>
+          </div>
+          <div class="options-web">
+            <a class="js-toggle-list-privacy nav-item">
+              {{#if userId}}
+                <span class="icon-lock" title="Make list private"></span>
+              {{else}}
+                <span class="icon-unlock" title="Make list public"></span>
+              {{/if}}
+            </a>
+
+            <a class="js-delete-list nav-item">
+              <span class="icon-trash" title="Delete list"></span>
+            </a>
+          </div>
+        </div>
+      
+
+      
+    </nav>
+    <!-- <div class='head-holder'></div> -->
+    
+
+    <div class="content-scrollable list-items">
+    {{> selectDate}}
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr>
+            <td style="width: 85px">Name</td>
             
-            {{name}}
-            {{#if insert}}*{{/if}}
-            <br/>
-            <small>{{desc}}</small>
-          </td>
-        
-          <td class='input-value'>
-          {{#if insert}}
-            {{#autoForm schema=inputSchema id=kpiId type="method" meteormethod="readingInput" validation='keyup'}}
-              {{> afQuickField name='input' label=false}}
-              
-            {{/autoForm}}
-          {{else}}
-            {{valueString}}
-          {{/if}}
-          </td>
-          <td>{{evaluation}}</td>
-          <td>{{#unless insert}}<button data-id='{{_id}}' class='btn btn-default reset'>Reset</button>{{/unless}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
+            <td style="width: 250px">Reading value</td>
+            <td>Evaluation</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each readings}}
+            <tr>
+              <td>
+                
+                {{name}}
+                {{#if insert}}*{{/if}}
+                <br/>
+                <small>{{desc}}</small>
+              </td>
+            
+              <td class='input-value'>
+              {{#if insert}}
+                {{#autoForm schema=inputSchema id=kpiId type="method" meteormethod="readingInput" validation='keyup'}}
+                  {{> afQuickField name='input' label=false}}
+                  
+                {{/autoForm}}
+              {{else}}
+                {{valueString}}
+              {{/if}}
+              </td>
+              <td>{{evaluation}}</td>
+              <td>{{#unless insert}}<button data-id='{{_id}}' class='btn btn-default reset'>Reset</button>{{/unless}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
   </div>
+
 </template>

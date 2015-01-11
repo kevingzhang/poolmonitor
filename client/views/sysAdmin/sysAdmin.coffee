@@ -65,7 +65,7 @@ Template.sysAdmin.events
   'click #siteTable .regular-row': (e,t) ->
     Session.set 'sysAdmin/selectedSite', @_id
 
-  'click #siteTable .regular-row .fa-cog':(e,t)->
+  'click #siteTable .fa-cog':(e,t)->
     siteId = e.currentTarget.getAttribute('data-id')
     if siteId?
       Router.go "/sysadmin/faclist/#{siteId}"

@@ -1,5 +1,6 @@
 <template name='desktopLayout'>
 <!-- Fixed navbar -->
+<div style="background-color:white;height:100%">
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
@@ -34,16 +35,14 @@
     </div>
   </nav>
 
-  <div class="container">
+  <div class="container" >
 
-    <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      {{>yield 'jumbotronTitle'}}
-    </div>
+    
     <div>{{>yield}}</div>
   </div> <!-- /container -->
 
 
 
   {{> autoformModals}}
+</div>
 </template>

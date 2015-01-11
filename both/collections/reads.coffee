@@ -7,24 +7,9 @@ Schema.Reading = new SimpleSchema
     type:String 
   kpiId:
     type:String
-  logAt:
-    type:Date
-    autoValue:->
-      if @isInsert
-        return new Date()
-      else if @isUpsert
-        return {$setOnInsert: new Date()}
-      else
-        @unset() 
-  logAtYMD:
+  logAtMDY:
     type:String
-    autoValue:->
-      if @isInsert
-        return moment().format('YYYYMMDD')
-      else if @isUpsert
-        return {$setOnInsert: moment().format('YYYYMMDD')}
-      else
-        @unset() 
+     
   updateAt:
     type:Date
     autoValue:->

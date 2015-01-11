@@ -40,8 +40,9 @@ Template.reading.helpers
       #todo
       return true 
     todayDataEntered = (item)->
-      today = moment((Session.get 'currentDate') or new Date()).format('YYYYMMDD')
-      return readingColl.findOne facilityId:facilityId, kpiId:item._id, logAtYMD:today 
+      todayString = (Session.get 'currentDate') or (moment().format('MM/DD/YYYY'))
+      
+      return readingColl.findOne {facilityId:facilityId, kpiId:item._id, logAtMDY:todayString}
 
 
     facilityId = Session.get 'currentSelectedFacilityId'
@@ -92,7 +93,18 @@ Template.reading.helpers
           input:
             type:String 
 
+  siteFacilityName:->
+    facilityId = Session.get 'currentSelectedFacilityId'
+    siteInfo = siteInfoColl.findOne 'facilities.id':facilityId
+    unless siteInfo?
+      return 'Please select facility'
+    siteName = siteInfo?.name 
+    for f in siteInfo.facilities
+      if f.id is facilityId 
+        return siteName + ' - ' + f.name 
+    return 'Facility not existing'
 
+  kpiCount: 99
 
 Template.reading.events
   'blur td.input-value>form>div>input': (e,t) ->
@@ -106,7 +118,7 @@ Template.reading.events
       newReadingDoc.kpiId = kpiId 
       newReadingDoc.valueString = e.target.value
       newReadingDoc.valueType = kpiDoc.valueType
-
+      newReadingDoc.logAtMDY = Session.get('currentDate')
       readingColl.insert newReadingDoc
 
   'click .reset':(e,t)->

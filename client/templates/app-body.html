@@ -1,0 +1,70 @@
+<template name="appBody">
+  <div id="container" class="{{menuOpen}} {{cordova}}">
+
+    <section id="menu">
+      {{#if currentUser}}
+        <div class="btns-group-vertical">
+          <a href="#" class="js-user-menu btn-secondary">
+            {{#if userMenuOpen}}
+              <span class="icon-arrow-up"></span>
+              {{else}}
+              <span class="icon-arrow-down"></span>
+            {{/if}}
+            {{emailLocalPart}}
+          </a>
+          {{#if userMenuOpen}}
+            <a class="js-logout btn-secondary">Logout</a>
+            {{#if isAdmin}}
+            <a href="{{pathFor 'sys.admin'}}" class="btn-secondary">System Admin</a>
+            <a href="{{pathFor 'sys.admin.faclist'}}" class="btn-secondary">Facilitys Admin</a>
+            {{/if}}
+          {{/if}}
+        </div>
+      {{else}}
+        <div class="btns-group">
+          <a href="{{pathFor 'signin'}}" class="btn-secondary">Sign In</a>
+          <a href="{{pathFor 'join'}}" class="btn-secondary">Join</a>
+          
+        </div>
+      {{/if}}
+
+      <div class="list-todos">
+        <!-- <a class="js-new-list link-list-new"><span class="icon-plus"></span>New List</a> -->
+        <ol>
+        {{#each lists}}
+          <li class='site-name'>{{optgroup}}</li>
+          <ul>
+            {{#each options}}
+            <li class="list-todo {{activeListClass fid}}" title="Select facility">
+              
+              - {{desc}}
+            
+            </li>
+            {{/each}}
+          </ul>
+        {{/each}}
+        </ol>
+      </div>
+    </section>
+
+    {{#unless connected}}
+      <div class="notifications">
+        <div class="notification">
+          <span class="icon-sync"></span>
+          <div class="meta">
+            <div class="title-notification">Trying to connect</div>
+            <div class="description">There seems to be a connection issue</div>
+          </div>
+        </div>
+      </div>
+    {{/unless}}
+
+    <div class="content-overlay"></div>
+
+    <div id="content-container">
+      {{#each thisArray}}
+        {{> yield}}
+      {{/each}}
+    </div>
+  </div>
+</template>

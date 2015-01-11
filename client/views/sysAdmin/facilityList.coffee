@@ -46,6 +46,11 @@ Template.facilityList.helpers
     fields:
       [
         {
+          key:'kpiGroupName'
+          label:'Group'
+
+        },
+        {
           key:'name'
           label:'Name'
 
@@ -90,6 +95,7 @@ Template.facilityList.events
     
     newKpi = {}
     newKpi._id = Random.hexString(24)
+    newKpi.kpiGroupName = "Default"
     newKpi.name = 'new KPI'
     newKpi.facilityId = facilityId
     newKpi.desc = ""
